@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center">
+
+    <h1 class="display-4">
+        Expense Tracker Dashboard
+    </h1>
+
+    <p class="lead">
+        Manage your expenses and track your spending.
+    </p>
+
+</div>
+
+<hr />
+
+<div class="row">
+
+    <div class="col-md-4">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h3>Total Expenses</h3>
+
+                <h1>$0</h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h3>Categories</h3>
+
+                <h1>0</h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h3>Monthly Budget</h3>
+
+                <h1>$5000</h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<br />
+
+<div class="text-center">
+
+    <a asp-controller="Expenses"
+           asp-action="Index"
+           class="btn btn-primary btn-lg">
+
+        View Expenses
+
+    </a>
+
+    <a asp-controller="Expenses"
+           asp-action="Create"
+           class="btn btn-success btn-lg">
+
+        Add Expense
+
+    </a>
+
+</div>

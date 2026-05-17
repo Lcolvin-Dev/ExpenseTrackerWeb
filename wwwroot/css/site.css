@@ -1,0 +1,101 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width:768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    min-height: 100vh;
+    background: linear-gradient( 135deg, #1E3A8A, #2563EB, #60A5FA );
+    color: white;
+}
+
+/* Navigation */
+
+.navbar {
+    background-color: #001F54 !important;
+}
+
+    .navbar-brand,
+    .navbar a {
+        color: white !important;
+    }
+
+        .navbar a:hover {
+            color: #C7D2FE !important;
+        }
+
+/* Cards */
+
+.card {
+    background-color: rgba(255,255,255,.95);
+    color: #111827;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.2);
+}
+
+/* Tables */
+
+.table {
+    background-color: white;
+    color: #111827;
+    border-radius: 12px;
+}
+
+    .table thead {
+        background-color: #001F54;
+        color: white;
+    }
+
+/* Forms */
+
+.form-control {
+    border-radius: 10px;
+}
+
+label {
+    font-weight: 600;
+}
+
+/* Green buttons */
+
+.btn-success {
+    background-color: #16A34A !important;
+    border-color: #16A34A !important;
+}
+
+    .btn-success:hover {
+        background-color: #15803D !important;
+    }
+
+/* Gold edit button */
+
+.btn-warning {
+    background-color: #F59E0B !important;
+    border-color: #F59E0B !important;
+}
+
+/* Red delete button */
+
+.btn-danger {
+    background-color: #DC2626 !important;
+    border-color: #DC2626 !important;
+}
+
+/* Gray cancel */
+
+.btn-secondary {
+    background-color: #6B7280 !important;
+    border-color: #6B7280 !important;
+}
