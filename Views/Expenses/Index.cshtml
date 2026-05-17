@@ -1,91 +1,47 @@
-﻿@{
-    ViewData["Title"] = "Home";
-}
+﻿@model List<Expense>
 
-<div class="text-center">
+<h1>Expenses</h1>
 
-    <h1 class="display-4">
-        Expense Tracker Dashboard
-    </h1>
+<a href="/Expenses/Create" class="btn btn-success mb-3">
+    Add New Expense
+</a>
 
-    <p class="lead">
-        Manage your expenses and track your spending.
-    </p>
+<table class="table table-striped">
 
-</div>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Notes</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
 
-<hr />
+    <tbody>
+        @foreach (var expense in Model)
+        {
+            <tr>
+                <td>@expense.Title</td>
+                <td>@expense.Amount.ToString("C")</td>
+                <td>@expense.Category</td>
+                <td>@expense.Date.ToShortDateString()</td>
+                <td>@expense.Notes</td>
 
-<div class="row">
+                <td>
+                    <a href="/Expenses/Edit/@expense.Id"
+                           class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
 
-    <div class="col-md-4">
+                    <a href="/Expenses/Delete/@expense.Id"
+                           class="btn btn-danger btn-sm">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
 
-        <div class="card text-center shadow">
-
-            <div class="card-body">
-
-                <h3>Total Expenses</h3>
-
-                <h1>$0</h1>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="col-md-4">
-
-        <div class="card text-center shadow">
-
-            <div class="card-body">
-
-                <h3>Categories</h3>
-
-                <h1>0</h1>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="col-md-4">
-
-        <div class="card text-center shadow">
-
-            <div class="card-body">
-
-                <h3>Monthly Budget</h3>
-
-                <h1>$5000</h1>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-<br />
-
-<div class="text-center">
-
-    <a asp-controller="Expenses"
-           asp-action="Index"
-           class="btn btn-primary btn-lg">
-
-        View Expenses
-
-    </a>
-
-    <a asp-controller="Expenses"
-           asp-action="Create"
-           class="btn btn-success btn-lg">
-
-        Add Expense
-
-    </a>
-
-</div>
+</table>

@@ -10,47 +10,20 @@ public class ExpensesController : Controller
         _context = context;
     }
 
-    public async Task<IActionResult> Index()
+    public IActionResult Index()
     {
-        // If database has no expenses, create sample data
-        if (!_context.Expenses.Any())
+        try
         {
-            _context.Expenses.AddRange(
+            List<Expense> expenses = _context.Expenses
+                .OrderByDescending(e => e.Date)
+                .ToList();
 
-                new Expense
-                {
-                    Title = "Rent",
-                    Amount = 2300,
-                    Category = "Housing",
-                    Date = DateTime.Now,
-                    Notes = "Monthly rent"
-                },
-
-                new Expense
-                {
-                    Title = "Car Payment",
-                    Amount = 825,
-                    Category = "Transportation",
-                    Date = DateTime.Now,
-                    Notes = "Truck payment"
-                },
-
-                new Expense
-                {
-                    Title = "Groceries",
-                    Amount = 200,
-                    Category = "Food",
-                    Date = DateTime.Now,
-                    Notes = "Walmart trip"
-                }
-            );
-
-            await _context.SaveChangesAsync();
+            return View(expenses);
         }
-
-        List<Expense> expenses = await _context.Expenses.ToListAsync();
-
-        return View(expenses);
+        catch (Exception ex)
+        {
+            return Content("Database Error: " + ex.Message);
+        }
     }
 
     public IActionResult Create()
@@ -59,48 +32,71 @@ public class ExpensesController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(Expense expense)
     {
-        _context.Expenses.Add(expense);
+        try
+        {
+            _context.Expenses.Add(expense);
 
-        await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
-        return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Expenses");
+        }
+        catch (Exception ex)
+        {
+            return Content("Save Error: " + ex.Message);
+        }
     }
 
     public async Task<IActionResult> Edit(int id)
     {
-        Expense expense = await _context.Expenses.FindAsync(id);
+        var expense = await _context.Expenses.FindAsync(id);
+
+        if (expense == null)
+        {
+            return NotFound();
+        }
 
         return View(expense);
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(Expense expense)
     {
-        _context.Update(expense);
+        _context.Expenses.Update(expense);
 
         await _context.SaveChangesAsync();
 
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction("Index", "Expenses");
     }
 
     public async Task<IActionResult> Delete(int id)
     {
-        Expense expense = await _context.Expenses.FindAsync(id);
+        var expense = await _context.Expenses.FindAsync(id);
+
+        if (expense == null)
+        {
+            return NotFound();
+        }
 
         return View(expense);
     }
 
     [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        Expense expense = await _context.Expenses.FindAsync(id);
+        var expense = await _context.Expenses.FindAsync(id);
 
-        _context.Expenses.Remove(expense);
+        if (expense != null)
+        {
+            _context.Expenses.Remove(expense);
 
-        await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+        }
 
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction("Index", "Expenses");
     }
 }

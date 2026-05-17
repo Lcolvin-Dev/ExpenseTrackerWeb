@@ -1,25 +1,46 @@
-using ExpenseTrackerWeb.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
-namespace ExpenseTrackerWeb.Controllers
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    private readonly ApplicationDbContext _context;
+
+    public HomeController(ApplicationDbContext context)
     {
-        public IActionResult Index()
+        _context = context;
+    }
+
+    public async Task<IActionResult> Index()
+    {
+        decimal totalExpenses = 0;
+        int totalCategories = 0;
+        decimal monthlyBudget = 5000;
+
+        try
         {
-            return View();
+            totalExpenses = await _context.Expenses.SumAsync(e => e.Amount);
+
+            totalCategories = await _context.Expenses
+                .Select(e => e.Category)
+                .Distinct()
+                .CountAsync();
+        }
+        catch
+        {
+            totalExpenses = 0;
+            totalCategories = 0;
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        ViewBag.TotalExpenses = totalExpenses;
+        ViewBag.TotalCategories = totalCategories;
+        ViewBag.MonthlyBudget = monthlyBudget;
+        ViewBag.RemainingBudget = monthlyBudget - totalExpenses;
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        return View();
+    }
+
+    public IActionResult Privacy()
+    {
+        return View();
     }
 }

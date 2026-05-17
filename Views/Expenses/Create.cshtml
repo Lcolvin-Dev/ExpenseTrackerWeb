@@ -2,41 +2,39 @@
 
 <h1>Add Expense</h1>
 
-<form asp-action="Create">
+<form asp-action="Create" method="post">
 
     <div class="mb-3">
-        <label>Title</label>
+        <label asp-for="Title"></label>
         <input asp-for="Title" class="form-control" />
     </div>
 
     <div class="mb-3">
-        <label>Amount</label>
+        <label asp-for="Amount"></label>
         <input asp-for="Amount" class="form-control" />
     </div>
 
     <div class="mb-3">
-        <label>Category</label>
+        <label asp-for="Category"></label>
         <input asp-for="Category" class="form-control" />
     </div>
 
     <div class="mb-3">
-        <label>Date</label>
-        <input asp-for="Date" class="form-control" />
+        <label asp-for="Date"></label>
+        <input asp-for="Date" type="date" class="form-control" />
     </div>
 
     <div class="mb-3">
-        <label>Notes</label>
+        <label asp-for="Notes"></label>
         <input asp-for="Notes" class="form-control" />
     </div>
 
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-success">
         Save Expense
     </button>
 
+    <a asp-action="Index" class="btn btn-secondary">
+        Cancel
+    </a>
+
 </form>
-
-<br />
-
-<a asp-action="Index" class="btn btn-secondary">
-    Back to Expenses
-</a>

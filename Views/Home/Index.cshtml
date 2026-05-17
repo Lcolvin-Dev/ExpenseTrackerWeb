@@ -1,15 +1,15 @@
 ﻿@{
-    ViewData["Title"] = "Expense Tracker";
+    ViewData["Title"] = "Home";
 }
 
 <div class="text-center">
 
-    <h1 class="display-3">
-        Welcome to Expense Tracker
+    <h1 class="display-4">
+        Expense Tracker Dashboard
     </h1>
 
     <p class="lead">
-        Track spending, manage budgets, and stay organized.
+        Manage your expenses and track your spending.
     </p>
 
 </div>
@@ -18,48 +18,78 @@
 
 <div class="row">
 
-    <div class="col-md-6">
+    <div class="col-md-4">
 
-        <div class="card shadow p-4">
+        <div class="card text-center shadow">
 
-            <h3>Manage Expenses</h3>
+            <div class="card-body">
 
-            <p>
-                View, edit, and organize your expenses.
-            </p>
+                <h3>Total Expenses</h3>
 
-            <a asp-controller="Expenses"
-                   asp-action="Index"
-                   class="btn btn-primary">
+                <h1>
+                    @ViewBag.TotalExpenses.ToString("C")
+                </h1>
 
-                View Expenses
-
-            </a>
+            </div>
 
         </div>
 
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
 
-        <div class="card shadow p-4">
+        <div class="card text-center shadow">
 
-            <h3>Add New Expense</h3>
+            <div class="card-body">
 
-            <p>
-                Add bills, groceries, subscriptions, and more.
-            </p>
+                <h3>Categories</h3>
 
-            <a asp-controller="Expenses"
-                   asp-action="Create"
-                   class="btn btn-success">
+                <h1>
+                    @ViewBag.TotalCategories
+                </h1>
 
-                Add Expense
-
-            </a>
+            </div>
 
         </div>
 
     </div>
+
+    <div class="col-md-4">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h3>Monthly Budget</h3>
+
+                <h1>
+                    @ViewBag.MonthlyBudget.ToString("C")
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<br />
+
+<div class="text-center">
+
+    <a href="/Expenses"
+           class="btn btn-primary btn-lg">
+
+        View Expenses
+
+    </a>
+
+    <a href="/Expenses/Create"
+           class="btn btn-success btn-lg">
+
+        Add Expense
+
+    </a>
 
 </div>
